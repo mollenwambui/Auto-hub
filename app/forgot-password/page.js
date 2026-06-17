@@ -41,8 +41,12 @@ export default function ForgotPassword() {
     setEmail("");
 
     // Redirect to reset password page
-    router.push("/reset-password");
-  };
+// Redirect user to reset password page
+//String Interpolation
+// We use backticks `` because we are inserting a variable inside the URL
+// ${email} gets replaced with the actual email entered by the user
+// Normal quotation marks "" would treat ${email} as plain text
+router.push(`/reset-password?email=${email}`);  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">

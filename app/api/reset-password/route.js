@@ -1,30 +1,33 @@
-// Import PrismaClient - this lets us talk to the database
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
+import bcrypt from "bcrypt"
 
-// Create Prisma instance
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 export async function POST(req) {
 
-  // Get data from frontend
-  const body = await req.json();
+  const body = await req.json()
 
-  // Update user password
+  // Hash the new password before saving
+  const hashedPassword = await bcrypt.hash(body.password, 10)
+
+  // Update user with hashed password
   const updatedUser = await prisma.user.update({
     where: {
       email: body.email,
     },
-
     data: {
-      password: body.password,
+      password: hashedPassword,
     },
-  });
+  })
 
-  console.log(updatedUser);
-
-  // Send response back
+  // Return the user object so frontend can save to localStorage
   return Response.json({
     success: true,
     message: "Password updated successfully",
-  });
+    user: {
+      id: updatedUser.id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+    }
+  })
 }

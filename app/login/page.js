@@ -51,6 +51,8 @@ export default function Login() {
       "user",
       JSON.stringify(data.user)
     );
+    
+localStorage.setItem("user", JSON.stringify(data.user))
 
     // Stop loading
     setLoading(false);
@@ -60,8 +62,7 @@ export default function Login() {
     setPassword("");
 
     // Redirect to homepage
-    router.push("/");
-  };
+window.location.href = "/"  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">

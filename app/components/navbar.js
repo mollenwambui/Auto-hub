@@ -25,6 +25,11 @@ useEffect(() => {
   const getInitial = (email) => {
     return email ? email.charAt(0).toUpperCase() : "?";
   };
+    // ADD THIS FUNCTION
+  const handleLogout = () => {
+    localStorage.removeItem("user")
+    window.location.href = "/"
+  }
 
   return (
     <nav className="flex justify-between items-center px-8 py-4 bg-green-50 border-b border-green-200">
@@ -58,7 +63,13 @@ useEffect(() => {
             <div className="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">
               {getInitial(user.email)}
             </div>
-
+ {/* ADD THIS BUTTON */}
+            <button
+              onClick={handleLogout}
+              className="text-red-600 font-medium hover:text-red-800"
+            >
+              Logout
+            </button>
           </Fragment>
         ) : (
           <Fragment>

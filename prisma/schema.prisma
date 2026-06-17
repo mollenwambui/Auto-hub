@@ -18,3 +18,12 @@ model User {
   email    String @unique
   password String
 }
+model Car {
+  id           Int    @id @default(autoincrement())
+  name         String
+  price        Float
+  year         Int
+  mileage      String
+  transmission String
+  image        String
+}
